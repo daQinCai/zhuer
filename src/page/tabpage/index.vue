@@ -40,13 +40,13 @@
                 <van-grid-item icon="coupon" text="聚划算"/>
                 <van-grid-item icon="point-gift" text="超高券"/>
             </van-grid>
-            <div class="content-card" v-for="(item, index) in CommodityList" :key="index">
-                <div class="card" >
-                    <van-image width="100%" height="120px" src="https://img.yzcdn.cn/vant/apple-5.jpg" />
+            <div class="content-card" >
+                <div class="card" v-for="(item, index) in CommodityList" :key="index">
+                    <van-image width="100%" height="250px" :src=item.pict_url />
                     <div class="card-title" style="width:90%;height:35px;margin:auto;">{{item.jianjie}}</div>
                     <div class="flex_box">
                         <div style="margin-top:5px;">
-                           <span style="font-size:11px;line-height:20px;">券后:<span style="color:red;font-size:15px; font-weight: bold;">{{item.quanhou_jiage}}</span></span> 
+                            <span style="font-size:11px;line-height:20px;">券后:<span style="color:red;font-size:18px; font-weight: bold;">{{item.quanhou_jiage}}</span><s style="color: gainsboro;padding-left: 5px">{{item.size}}</s><span style="padding-left: 15px">月销量:<span style="color: gainsboro;">{{item.volume}}</span></span></span>
                         </div>
                         <div class="quan_css">
                             {{item.coupon_info_money}}元
@@ -58,7 +58,7 @@
                     <div class="card-title" style="width:90%;height:35px;margin:auto;">这个是标题这个是标题这个是标题标题标题标题标题标题标题</div>
                     <div class="flex_box">
                         <div style="margin-top:5px;">
-                           <span style="font-size:11px;line-height:20px;">券后:<span style="color:red;font-size:15px;font-weight: bold;">19.9</span></span> 
+                           <span style="font-size:11px;line-height:20px;">券后:<span style="color:red;font-size:15px;font-weight: bold;">19.9</span></span>
                         </div>
                         <div class="quan_css">
                             88元券
@@ -89,17 +89,17 @@
     height: 150px;
 }
 .content-card{
-    width: 95%;
+    width: 100%;
     height: 500px;
     position: relative;
     margin: auto;
 }
 .card{
     width: 46%;
-    height: 200px;
+    height: 340px;
     float: left;
-    margin-left: 12px;
-    margin-top: 10px;
+    margin-left: 20px;
+    margin-top: 15px;
     background-color:rgb(250, 250, 250);
     border-radius: 10px;
 }
@@ -162,11 +162,13 @@ export default {
     },
     getAllList(){
         var cid = 0;
-        var page =1;
+        var page =5;
+        let _this=this;
         this.axios.get(Url+'/product/getAllProducts/'+cid+'/'+page,).then(function(res){
             console.log(res.data.content);
             // var CommodityList = []
-            console.log(this.CommodityList)
+            _this.CommodityList=res.data.content
+            console.log(_this.CommodityList)
             // this.CommodityList = res.data.content
             
         })
